@@ -41,9 +41,14 @@ class ResultsView(generic.DetailView):
     template_name = 'polls/results.html'
 
 
+class ImageView(generic.DetailView):
+    model = Image
+    template_name = 'polls/image.html'
+
+
 class MemView(generic.DetailView):
     model = Mem
-    template_name = 'polls/image.html'
+    template_name = 'polls/mem.html'
 
 
 def set_text(request, image_id):

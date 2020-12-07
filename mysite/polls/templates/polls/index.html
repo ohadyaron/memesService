@@ -1,16 +1,9 @@
 {% load static %}
-<img alt="My image" src="{% static 'mysite/1.jpeg' %}">
 {% block content %}
-{% for file in latest_images_list %}
-<img src="{% static file.path %}" width="50px"/>
+{% for image in latest_images_list %}
+<a href="{% url 'polls:image' image.id %}">
+    <!--<a href="{{ file.id }}/image/">-->
+    <img src="{% static image.path %}" width="50px"/>
+</a>
 {% endfor %}
 {% endblock %}
-<!--{% if latest_question_list %}-->
-<!--    <ul>-->
-<!--    {% for question in latest_question_list %}-->
-<!--<li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>-->
-<!--    {% endfor %}-->
-<!--    </ul>-->
-<!--{% else %}-->
-<!--    <p>No polls are available.</p>-->
-<!--{% endif %}-->

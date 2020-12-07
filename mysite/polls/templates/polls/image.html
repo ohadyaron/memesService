@@ -1,6 +1,6 @@
 <h1>{{ image.path }}</h1>
 {% load static %}
-<img alt="My image" src="{% static 'image.path' %}">
+ <img src="{% static image.path %}" width="50px"/>
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
