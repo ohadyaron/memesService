@@ -1,0 +1,6 @@
+<h1>{{ mem.image }}</h1>
+{% load static %}
+<img alt="My image" src="{% static 'image.path' %}">
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+<h1>{{ mem.upper_text }}</h1>
+<h1>{{ mem.lower_text }}</h1>

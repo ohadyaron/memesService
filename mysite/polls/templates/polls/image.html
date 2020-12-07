@@ -1,0 +1,14 @@
+<h1>{{ image.path }}</h1>
+{% load static %}
+<img alt="My image" src="{% static 'image.path' %}">
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'polls:set_text' image.id %}" method="post">
+    {% csrf_token %}
+    <label for="utext">Upper Text:</label>
+    <input id="utext" name="fname" type="text"><br><br>
+    <label for="ltext">Last name:</label>
+    <input id="ltext" name="lname" type="text"><br><br>
+    <input type="submit" value="Vote">
+</form>

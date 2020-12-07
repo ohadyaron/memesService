@@ -22,3 +22,19 @@ class Choice(models.Model):
 
     def __str__(self):
         return self.choice_text
+
+
+class Image(models.Model):
+    path = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.path
+
+
+class Mem(models.Model):
+    image = models.ForeignKey(Image, on_delete=models.CASCADE)
+    upper_text = models.CharField(max_length=200)
+    lower_text = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.image
