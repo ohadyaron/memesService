@@ -1,3 +1,6 @@
+import os
+
+from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
@@ -7,14 +10,11 @@ from .models import Choice, Question, Mem, Image
 
 
 def load_images():
-    print("XXXX")
-    from django.contrib.staticfiles.utils import get_files
-    from django.contrib.staticfiles.storage import StaticFilesStorage
-
-    s = StaticFilesStorage()
-    for file in list(get_files(s, location='mysite')):
+    print("XXXX " + settings.STATIC_ROOT)
+    for file in os.listdir(settings.STATIC_ROOT + settings.SITE_NAME):
+        print("inserted " + file)
         try:
-            Image.objects.get_or_create(path=file)
+            Image.objects.get_or_create(path='/' + settings.SITE_NAME + file)
             print("inserted " + file)
         except (KeyError, Image.DoesNotExist):
             print("already exists " + file)
