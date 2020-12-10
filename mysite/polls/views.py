@@ -10,8 +10,7 @@ from .models import Choice, Question, Mem, Image
 
 
 def load_images():
-    print("XXXX " + settings.STATIC_ROOT)
-    for file in os.listdir(settings.STATIC_ROOT + settings.SITE_NAME):
+    for file in os.listdir(settings.STATICFILES_DIRS[0] + settings.SITE_NAME):
         print("inserted " + file)
         try:
             Image.objects.get_or_create(path='/' + settings.SITE_NAME + file)
