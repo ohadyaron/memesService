@@ -1,3 +1,4 @@
 .idea/
 venv/
 mysite/static
+db.sqlite3

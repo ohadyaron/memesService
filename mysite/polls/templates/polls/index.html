@@ -1,5 +1,6 @@
 {% load static %}
 {% block content %}
+<h1>Choose your image</h1>
 {% for image in latest_images_list %}
 <a href="{% url 'polls:image' image.id %}">
     <!--<a href="{{ file.id }}/image/">-->
