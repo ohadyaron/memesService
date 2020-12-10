@@ -110,8 +110,9 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
-SITE_NAME = 'mysite/'
-STATIC = 'static/'
+IMAGES_DIR = '/src_images/'
+MEMES_DIR = '/memes/'
+STATIC = 'static'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, STATIC),

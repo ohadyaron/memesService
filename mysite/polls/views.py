@@ -10,10 +10,10 @@ from .models import Choice, Question, Mem, Image
 
 
 def load_images():
-    for file in os.listdir(settings.STATICFILES_DIRS[0] + settings.SITE_NAME):
+    for file in os.listdir(settings.STATICFILES_DIRS[0] + settings.IMAGES_DIR):
         print("inserted " + file)
         try:
-            Image.objects.get_or_create(path='/' + settings.SITE_NAME + file)
+            Image.objects.get_or_create(path=settings.IMAGES_DIR + file)
             print("inserted " + file)
         except (KeyError, Image.DoesNotExist):
             print("already exists " + file)
@@ -51,22 +51,27 @@ class MemView(generic.DetailView):
 
 
 def set_text(request, image_id):
-    image = get_object_or_404(Mem, pk=image_id)
+    selected_image = get_object_or_404(Image, pk=image_id)
     try:
-        image.upper_text(pk=request.POST['utext'])
-        image.lower_text(pk=request.POST['ltext'])
+        print("new mem " + selected_image.path)
+        upper_text = request.POST.get('ltext')
+        lower_text = request.POST.get('ltext')
+        mem = Mem.objects.get_or_create(image=selected_image,
+                                        upper_text=upper_text,
+                                        lower_text=lower_text)
+        mem[0].save()
+        Mem.generate_meme(image_path=settings.STATICFILES_DIRS[0] + selected_image.path,
+                          font_path=settings.STATICFILES_DIRS[0] + '/fonts/impact/impact.ttf',
+                          dst_path=settings.STATICFILES_DIRS[0] + settings.MEMES_DIR + str(mem[0].id) + '.jpg',
+                          top_text=upper_text,
+                          bottom_text=lower_text)
+        return HttpResponseRedirect(reverse('polls:meme', args=(mem[0].id,)))
     except (KeyError, Mem.DoesNotExist):
         # Redisplay the question voting form.
-        return render(request, 'polls/detail.html', {
-            'image': image,
+        return render(request, 'polls/image.html', {
+            'mem': image_id,
             'error_message': "You didn't select a text.",
         })
-    else:
-        image.save()
-        # Always return an HttpResponseRedirect after successfully dealing
-        # with POST data. This prevents data from being posted twice if a
-        # user hits the Back button.
-        return HttpResponseRedirect(reverse('polls:memes', args=(image.id,)))
 
 
 def vote(request, question_id):
