@@ -3,7 +3,7 @@
 {% for image in latest_images_list %}
 <a href="{% url 'polls:image' image.id %}">
     <!--<a href="{{ file.id }}/image/">-->
-    <img src="{% static image.path %}" width="50px"/>
+    <img src="{% static image.path %}" width="200px"/>
 </a>
 {% endfor %}
 {% endblock %}

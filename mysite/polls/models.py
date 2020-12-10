@@ -36,6 +36,7 @@ class Image(models.Model):
 
 class Mem(models.Model):
     image = models.ForeignKey(Image, on_delete=models.CASCADE)
+    path = models.CharField(max_length=200)
     upper_text = models.CharField(max_length=200)
     lower_text = models.CharField(max_length=200)
 

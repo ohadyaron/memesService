@@ -12,5 +12,6 @@ urlpatterns = [
                   path('<int:pk>/image', views.ImageView.as_view(), name='image'),
                   path('<int:pk>/meme', views.MemView.as_view(), name='meme'),
                   path('<int:image_id>/set_text/', views.set_text, name='set_text'),
+                  path('<int:mem_id>/download/', views.download, name='download'),
                   path('<int:question_id>/vote/', views.vote, name='vote'),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
